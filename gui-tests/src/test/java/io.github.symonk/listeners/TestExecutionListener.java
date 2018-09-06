@@ -55,6 +55,6 @@ public class TestExecutionListener implements IExecutionListener {
 
   private void pushReportInformation() {
     log.info("pushing report information");
-    this.reportHelper.pushDynamicTestRunPropertiesToReport();
+    //this.reportHelper.pushDynamicTestRunPropertiesToReport();
   }
 }
