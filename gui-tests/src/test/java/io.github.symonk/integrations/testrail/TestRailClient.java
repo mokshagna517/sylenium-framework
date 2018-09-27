@@ -2,6 +2,7 @@ package io.github.symonk.integrations.testrail;
 
 import com.codepine.api.testrail.TestRail;
 import com.codepine.api.testrail.model.Run;
+import io.github.symonk.configurations.properties.FrameworkProperties;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -10,16 +11,22 @@ import java.util.List;
 public class TestRailClient {
 
   private final TestRail testRail;
+  private final int projectId, suiteId;
+  private final String runName;
 
-  public TestRailClient(final String server, final String username, final String password) {
-    testRail = TestRail.builder(server, username, password).build();
+  public TestRailClient(final FrameworkProperties properties) {
+    testRail =
+        TestRail.builder(
+                properties.testrailEndpoint(),
+                properties.testRailUsername(),
+                properties.testRailPassword())
+            .build();
+    this.projectId = properties.testRailProjectId();
+    this.suiteId = properties.testRailSuiteId();
+    this.runName = properties.testRailRunName();
   }
 
-  public TestRailClient instantiateRunWithTests(
-      final List<Integer> listOfTestCases,
-      final int projectId,
-      final int suiteId,
-      final String runName) {
+  public TestRailClient instantiateRunWithTests(final List<Integer> listOfTestCases) {
     testRail
         .runs()
         .add(
@@ -33,8 +40,12 @@ public class TestRailClient {
     return this;
   }
 
-  public TestRailClient instantiateRunWithAllTests(
-      final int projectId, final int suiteId, final String runName) {
+  public TestRailClient createRun() {
+    testRail.runs().add(projectId, new Run().setSuiteId(suiteId).setName(runName).setIncludeAll(false));
+    return this;
+  }
+
+  public TestRailClient instantiateRunWithAllTests() {
     testRail.runs().add(projectId, new Run().setSuiteId(suiteId).setName(runName)).execute();
     return this;
   }

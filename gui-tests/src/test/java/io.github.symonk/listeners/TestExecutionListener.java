@@ -5,9 +5,13 @@ import io.github.symonk.common.helpers.reporting.ReportHelper;
 import io.github.symonk.common.helpers.reporting.ReportInteractable;
 import io.github.symonk.common.helpers.slack.SlackHelper;
 import io.github.symonk.configurations.properties.FrameworkProperties;
+import io.github.symonk.integrations.testrail.TestRailClient;
 import lombok.extern.slf4j.Slf4j;
 import org.aeonbits.owner.ConfigFactory;
 import org.testng.IExecutionListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 public class TestExecutionListener implements IExecutionListener {
@@ -21,7 +25,11 @@ public class TestExecutionListener implements IExecutionListener {
     log.info("test run starting!");
     configureTestRun();
     pushReportInformation();
-
+    if(properties.isTestRailEnabled()) {
+      log.info("Testrail is enabled!");
+      new TestRailClient(properties)
+              .createRun();
+    }
   }
 
   @Override

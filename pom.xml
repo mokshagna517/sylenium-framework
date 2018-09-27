@@ -41,6 +41,8 @@
         <owner.version>1.0.10</owner.version>
         <slack.version>1.4.0</slack.version>
         <testrail.api.version>2.0.0</testrail.api.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <profiles>
@@ -198,6 +200,11 @@
             <groupId>com.codepine.api</groupId>
             <artifactId>testrail-api-java-client</artifactId>
             <version>${testrail.api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
         </dependency>
     </dependencies>
 

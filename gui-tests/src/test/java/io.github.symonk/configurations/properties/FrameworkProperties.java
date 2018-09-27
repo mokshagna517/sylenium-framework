@@ -82,6 +82,15 @@ public interface FrameworkProperties extends Config {
   @DefaultValue("false")
   boolean isTestRailEnabled();
 
+  @Key("testrail.projectid")
+  int testRailProjectId();
+
+  @Key("testrail.suiteid")
+  int testRailSuiteId();
+
+  @Key("testrail.runname")
+  String testRailRunName();
+
   default Properties getAllProperties() {
     return new Properties() {
       {
@@ -103,6 +112,9 @@ public interface FrameworkProperties extends Config {
         setProperty("testrail.username", testRailUsername());
         setProperty("testrail.password", testRailPassword());
         setProperty("testrail.enabled", String.valueOf(isTestRailEnabled()));
+        setProperty("testrail.projectid", String.valueOf(testRailProjectId()));
+        setProperty("testrail.suiteid", String.valueOf(testRailSuiteId()));
+        setProperty("testrail.runname", String.valueOf(testRailRunName()));
       }
     };
   }

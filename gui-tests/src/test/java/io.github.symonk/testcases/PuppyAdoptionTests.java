@@ -1,5 +1,6 @@
 package io.github.symonk.testcases;
 
+import io.github.symonk.aspects.$yAudit;
 import io.github.symonk.common.helpers.localisation.ProvidesLanguageValues;
 import io.github.symonk.configurations.guice.GuiceModule;
 import io.github.symonk.data.OrderProvidable;
@@ -67,6 +68,7 @@ public class PuppyAdoptionTests extends TestBaseTemplate {
   @Issue("ISS-003")
   @TmsLink("3")
   @Severity(SeverityLevel.CRITICAL)
+  @$yAudit
   public void optionsAreCorrectlyBilled() {
     final PuppyOrder order = orderProvider.createRandomOrderWithAllOptions();
     new PuppyAdoptionHomePage()
